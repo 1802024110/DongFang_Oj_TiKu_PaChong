@@ -1,6 +1,20 @@
 import create_excel
 import create_word
-
+#打印欢迎信息
+print("欢迎使用")
+#打印作者信息
+print("作者：NoDream")
+#打印版本信息
+print("版本：0.0.1")
+#打印更新时间
+print("更新时间：2021-11-26")
+#打印更新内容
+print("更新内容：初始版本")
+#打印更新内容
+print("更新内容：添加了生成word文档的功能")
+#打印更新内容
+print("更新内容：添加了生成excel文档的功能")
+print("")
 choose = input("请选择导出类型：1.Excel 2.Word: ")
 if choose == "1":
   start = input("请输入起始题号：")
