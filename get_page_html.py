@@ -52,10 +52,10 @@ def get_page_describe(index_page):
   '''
     获得题目的描述
   '''
-  all_list = get_page_html_lxml(index_page).xpath('//div[@class="markdown"]')[0].xpath('string(.)')
-  all_list = [i for i in all_list if i != ' ']
-  all_list = ''.join(all_list)
   try:
+    all_list = get_page_html_lxml(index_page).xpath('//div[@class="markdown"]')[0].xpath('string(.)')
+    all_list = [i for i in all_list if i != ' ']
+    all_list = ''.join(all_list)
     describe = all_list
     return describe
   except:
@@ -64,12 +64,12 @@ def get_page_input_text(index_page):
   '''
     获得题目的输入 描述
   '''
-  all_list = get_page_html_lxml(index_page).xpath('//div[@class="markdown"]')[1]
-  all_list = all_list.xpath('string(.)')
-  all_list = [i for i in all_list if i != ' ']
-  all_list = ''.join(all_list)
-  #去除数组的空元素
   try:
+    all_list = get_page_html_lxml(index_page).xpath('//div[@class="markdown"]')[1]
+    all_list = all_list.xpath('string(.)')
+    all_list = [i for i in all_list if i != ' ']
+    all_list = ''.join(all_list)
+    #去除数组的空元素
     describe = all_list
     return describe
   except:

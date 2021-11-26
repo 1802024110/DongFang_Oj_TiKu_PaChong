@@ -90,10 +90,11 @@ def get_answer_text(index_page):
   '''
     获取真正题解
   '''
-  html = session.get(get_answer_list_url(index_page)).text
-  #lxml匹配class="thread-content"
-  html = etree.HTML(html)
   try:
+    html = session.get(get_answer_list_url(index_page)).text
+    #lxml匹配class="thread-content"
+    html = etree.HTML(html)
+  
     text = html.xpath('//div[@class="markdown"]')
     #获取题解的文本
     text = etree.tostring(text[0],encoding='utf-8').decode('utf-8')
