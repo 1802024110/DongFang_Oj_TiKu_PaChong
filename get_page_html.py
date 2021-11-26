@@ -154,10 +154,3 @@ def get_page_source(index_page):
     return describe
   except:
     return str(index_page) + ' 题目输出描述未获取到'
-def main():
-  for i in range(1000,2253):
-    # #循环所有题目
-    if(get_page_html(i) == 'Not this page'): continue
-    print(get_page_describe(i),'\n')
-if __name__ == '__main__':
-    main()

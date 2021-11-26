@@ -27,7 +27,6 @@ def login(username,password):
   'login-button': ''
   }
   html = session.post(url,data=data).status_code
-  print(html)
   if html == 200:
     return True
   else:
@@ -68,7 +67,7 @@ def get_answer_url(index_page):
   try:
     url = re.findall('<a class="btn btn-default" href="(.*?)"><span class="glyphicon glyphicon-comment"></span> 题解</a>',html)[0]
   except:
-    print('你还没做,没有题解')
+    print('未输入账户或你还没做,没有题解。输入账号或重新登陆')
     return False
   url = url.replace('amp;','')
   #获取题目的url
@@ -108,12 +107,3 @@ def get_answer_text(index_page):
   except:
     print('没有题解')
     return False
-def main():
-  login('tyh','030706')
-  for i in range(1000,1190):
-    if (get_page_html(i) == 'Not this page' or get_answer_url(i) == False): continue
-    print('第',i,'题')
-    print(get_answer_text(i))
-if __name__ == '__main__':
-  main()
-    
