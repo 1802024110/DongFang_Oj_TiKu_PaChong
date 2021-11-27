@@ -2,7 +2,7 @@ import requests
 import xlsxwriter
 import get_page_html
 import get_answer
-workbook = xlsxwriter.Workbook('data.xlsx')
+workbook = xlsxwriter.Workbook('Oj.xlsx')
 worksheet = workbook.add_worksheet()  # 默认为 Sheet1.
 #写入表头
 def write_table_head(item):
