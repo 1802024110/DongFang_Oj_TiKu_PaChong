@@ -16,15 +16,20 @@ def get_page_html(index_page):
   html.encoding = 'utf-8'
   html = html.text
   # #将html中所有换行删除
-  #html = html.replace('\n','')
+  # html = html.replace('\n','')
   # #将html中所有<br>删除
   html = html.replace('\r','\n')
   return html
-def get_page_html_lxml(index_page):
+def get_page_html_lxml(index_page,move=1):
   '''
     获得网页的html的lxml格式文本
+    第二参数未否移除文本中的换行符
+    默认移除
+    1为移除
+    0为不移除
   '''
   html = get_page_html(index_page)
+  if(move): html = html.replace('\n','') 
   #将html文本转换为lxml格式
   html = etree.HTML(html)
   return html
@@ -53,39 +58,63 @@ def get_page_describe(index_page):
     获得题目的描述
   '''
   try:
-    all_list = get_page_html_lxml(index_page).xpath('//div[@class="markdown"]')[0].xpath('string(.)')
-    all_list = [i for i in all_list if i != ' ']
-    all_list = ''.join(all_list)
-    describe = all_list
-    return describe
-  except:
+    title_list = get_page_html_lxml(index_page).xpath('//div[@class="content-header"]')[0]
+    title_list = title_list.xpath('string(.)')
+    title_list = [i for i in title_list if i != ' ']
+    title_list = ''.join(title_list)
+    if (title_list == '题目描述'):
+      all_list = get_page_html_lxml(index_page).xpath('//div[@class="markdown"]')[0]
+      all_list = all_list.xpath('string(.)')
+      all_list = [i for i in all_list if i != ' ']
+      #去除数组的空元素
+      all_list = ''.join(all_list)
+      describe = all_list
+      return describe
+    else:
+      return '未获取到题目描述'
+  except Exception as e:
+    print(e)
     return str(index_page) + ' 题目描述未获取到'
 def get_page_input_text(index_page):
   '''
     获得题目的输入 描述
   '''
   try:
-    all_list = get_page_html_lxml(index_page).xpath('//div[@class="markdown"]')[1]
-    all_list = all_list.xpath('string(.)')
-    all_list = [i for i in all_list if i != ' ']
-    all_list = ''.join(all_list)
-    #去除数组的空元素
-    describe = all_list
-    return describe
+    title_list = get_page_html_lxml(index_page).xpath('//div[@class="content-header"]')[1]
+    title_list = title_list.xpath('string(.)')
+    title_list = [i for i in title_list if i != ' ']
+    title_list = ''.join(title_list)
+    if (title_list == '输入'):
+      all_list = get_page_html_lxml(index_page).xpath('//div[@class="markdown"]')[1]
+      all_list = all_list.xpath('string(.)')
+      all_list = [i for i in all_list if i != ' ']
+      #去除数组的空元素
+      all_list = ''.join(all_list)
+      describe = all_list
+      return describe
+    else:
+      return '未获取到题目输入'
   except:
-    return str(index_page) + ' 题目输入描述未获取到'
+    return str(index_page) + ' 题目输入未获取到'
 def get_page_output_text(index_page):
   '''
     获得题目的输出 描述
   '''
   try:
-    all_list = get_page_html_lxml(index_page).xpath('//div[@class="markdown"]')[2]
-    all_list = all_list.xpath('string(.)')
-    all_list = [i for i in all_list if i != ' ']
-    all_list = ''.join(all_list)
-    #去除数组的空元素
-    describe = all_list
-    return describe
+    title_list = get_page_html_lxml(index_page).xpath('//div[@class="content-header"]')[2]
+    title_list = title_list.xpath('string(.)')
+    title_list = [i for i in title_list if i != ' ']
+    title_list = ''.join(title_list)
+    if (title_list == '输出'):
+      all_list = get_page_html_lxml(index_page).xpath('//div[@class="markdown"]')[2]
+      all_list = all_list.xpath('string(.)')
+      all_list = [i for i in all_list if i != ' ']
+      #去除数组的空元素
+      all_list = ''.join(all_list)
+      describe = all_list
+      return describe
+    else:
+      return '未获取到题目输入'
   except:
     return str(index_page) + ' 题目输出描述未获取到'
 def get_page_Sample_input_text(index_page):
@@ -122,7 +151,7 @@ def get_page_Tips(index_page):
     title_list = [i for i in title_list if i != ' ']
     title_list = ''.join(title_list)
     if (title_list == '提示'):
-      all_list = get_page_html_lxml(index_page).xpath('//div[@class="markdown"]')[3]
+      all_list = get_page_html_lxml(index_page,0).xpath('//div[@class="markdown"]')[3]
       all_list = all_list.xpath('string(.)')
       all_list = [i for i in all_list if i != ' ']
       #去除数组的空元素
@@ -154,3 +183,4 @@ def get_page_source(index_page):
     return describe
   except:
     return str(index_page) + ' 题目输出描述未获取到'
+print(get_page_source(1000))
