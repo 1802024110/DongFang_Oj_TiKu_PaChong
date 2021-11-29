@@ -16,7 +16,7 @@ def get_page_html(index_page):
   html.encoding = 'utf-8'
   html = html.text
   # #将html中所有换行删除
-  html = html.replace('\n','')
+  #html = html.replace('\n','')
   # #将html中所有<br>删除
   html = html.replace('\r','\n')
   return html
