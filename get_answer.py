@@ -95,7 +95,7 @@ def get_answer_text(index_page):
     #lxml匹配class="thread-content"
     html = etree.HTML(html)
   
-    text = html.xpath('//div[@class="markdown"]')
+    text = html.xpath('//div[@class="markdown"]/pre/code')
     #获取题解的文本
     text = etree.tostring(text[0],encoding='utf-8').decode('utf-8')
     text = text.replace('</p>','\n')
