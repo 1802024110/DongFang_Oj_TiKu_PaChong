@@ -62,8 +62,8 @@ def submitAnswer(page,answer,csrf):
   'Upgrade-Insecure-Requests': '1',
   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36'
   }
-  session.post('https://oj.czos.cn/p/'+str(page),headers=headers,data=data)
-  print(csrf,'\n',page,'\n',answer)
+  statu = session.post('https://oj.czos.cn/p/'+str(page),headers=headers,data=data)
+  print(statu.status_code)
 if __name__ == '__main__':
   """ 
     入口在这里
@@ -76,12 +76,15 @@ if __name__ == '__main__':
   # 对方账号
   login('1802024110','2002zengyuan')
   # 我方账号
-  for item in range(1000,2315):
+  for item in range(1017,2315):
     # 起始题号
     try:
+      if da.get_answer_text(item) == False: continue
+      # 如果没有获取到答案，跳过
       submitAnswer(item,da.get_answer_text(item),getCsrf(item))
-      time.sleep(10)
+      print('提交答案成功，题号：',item,'提交返回状态如上')
+      time.sleep(60)
       # 减速保命
     except:
-      print('这题'+item+'出错了')
+      print('这题',item,'出错了')
       continue
