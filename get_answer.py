@@ -108,3 +108,21 @@ def get_answer_text(index_page):
   except:
     print('没有题解')
     return False
+def getMyAnswer(index_page):
+  '''
+    获取我的答案
+  '''
+  html = get_page_html_lxml(index_page)
+  # 获得成功提交的ID
+  try:
+    id = html.xpath("//strong[@class='text-success']/@data-submissionid")[0]
+    answer_text = session.get("https://oj.czos.cn/solution/source?id="+id).text
+    # 转换为lxml格式
+    answer_text = etree.HTML(answer_text)
+    # 获得我的答案
+    answer_text = answer_text.xpath("//div[@class='pre']//text()")[0]
+    return answer_text
+  except:
+    print('没有提交')
+    return False
+    

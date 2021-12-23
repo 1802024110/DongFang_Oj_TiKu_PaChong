@@ -74,14 +74,14 @@ if __name__ == '__main__':
   """
   da.login('tyh','030706')
   # 对方账号
-  login('1802024110','2002zengyuan')
+  login('NoDream','2002zengyuan')
   # 我方账号
-  for item in range(1017,2315):
+  for item in range(1000,2315):
     # 起始题号
     try:
-      if da.get_answer_text(item) == False: continue
+      if da.getMyAnswer(item) == False: continue
       # 如果没有获取到答案，跳过
-      submitAnswer(item,da.get_answer_text(item),getCsrf(item))
+      submitAnswer(item,da.getMyAnswer(item),getCsrf(item))
       print('提交答案成功，题号：',item,'提交返回状态如上')
       time.sleep(60)
       # 减速保命
