@@ -72,9 +72,15 @@ if __name__ == '__main__':
     佛祖保佑，永无BUG
     有一部分没有解析，可能是解析的问题，没有解析的问题，可以自己去查找
   """
-  da.login('tyh','030706')
+  username = input('请输入对方用户名：')
+  password = input('请输入对方密码：')
+  username1 = input('请输入自己的用户名：')
+  password1 = input('请输入自己的密码：')
+  # da.login('tyh','030706')
+  da.login(username,password)
   # 对方账号
-  login('NoDream','2002zengyuan')
+  # login('NoDream','2002zengyuan')
+  login(username1,password1)
   # 我方账号
   for item in range(1000,2315):
     # 起始题号
